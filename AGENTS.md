@@ -18,17 +18,61 @@ Baseline guidance for an Agentic IDE working in **this homework repo**.
 - The homework is graded by CodeRabbit (`.coderabbit.yaml`) against the
   Definition of Done in `docs/walkthrough.md`.
 
+## Tech Stack
+
+- **Language:** TypeScript (app/)
+- **Test Framework:** Vitest
+- **Package Manager:** npm
+- **Node Version:** ^18 (from package.json)
+- **Editor:** Claude Code, VS Code, or Cursor
+- **Build:** TypeScript compiler (tsc) via `npm run build`
+- **Scripts Available:**
+  - `npm test` — Run Vitest suite
+  - `npm run build` — Compile TS to JS
+
+## Commands
+
+**Available in Claude Code / Cursor:**
+
+- `/caveman` — Ultra-compressed communication mode (caveman style)
+- `/review` — Code review on current diff
+- `/simplify` — Simplify & cleanup code changes
+- **Custom commands in `.claude/commands/`:**
+  - `absolute-worst-practices` — Inject anti-patterns (educational)
+  - `ork-mekboy-forge` — Rewrite in Ork Mekboy style
+
+**Git commands (terminal):**
+- `npm test` — Verify changes
+- `git status` — Check uncommitted work
+- `git diff` — View changes
+
 ## Conventions
 
-- Documentation language: Ukrainian or English (participant's choice).
-- Keep generated artifacts in the agreed paths so auto-review can find them:
-  - `prompts/<task>.md` — cookbook entries (10+), from `prompts/_template.md`
-  - `.cursor/commands/` or `.claude/commands/` — ≥2 promoted commands
-  - `docs/sanitized-ticket.md` — Task B sanitized output
-  - `docs/sanitization-checklist.md` — Task B reusable checklist
-  - `docs/injection-report.md` — Task C attack → defense write-up
-  - `docs/context-layer.md` — Task D context curation + token before/after
-  - `docs/ab-experiment.md` — Task E (bonus)
+**Documentation language:**
+- Ukrainian or English (participant's choice)
+- Keep consistent within single document
+- Use `.claudeignore` to exclude sensitive files
+
+**Code style:**
+- TypeScript strict mode enabled
+- Use const/let (no var)
+- Arrow functions preferred
+- No comments unless WHY is non-obvious
+- Omit error handling for guaranteed paths
+
+**Naming:**
+- Functions/variables: camelCase
+- Files: kebab-case or descriptive.ts
+- Test files: `*.test.ts` or `*.spec.ts`
+
+**Artifact paths (auto-review finds these):**
+- `prompts/<task>.md` — cookbook entries (10+), from `prompts/_template.md`
+- `.claude/commands/` — promoted commands (≥2)
+- `docs/sanitized-ticket.md` — Task B output
+- `docs/sanitization-checklist.md` — Task B reusable template
+- `docs/injection-report.md` — Task C attack → defense
+- `docs/context-layer.md` — Task D context curation + token delta
+- `docs/ab-experiment.md` — Task E (bonus)
 
 ## Security guardrails (this is the topic — follow it here too)
 

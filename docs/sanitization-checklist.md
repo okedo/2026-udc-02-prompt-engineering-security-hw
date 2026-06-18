@@ -1,164 +1,131 @@
 ---
-title: Data Sanitization Checklist - Template
+title: Data Sanitization Checklist
 status: Template
 date_created: 2026-06-18
 ---
 
-# General Data Sanitization Checklist
+# Чек-ліст санітизації даних
 
-Template for sanitizing sensitive data in technical documents, tickets, logs, and reports.
+Загальний шаблон для знищення чутливих даних перед публікацією / поширенням.
 
-## Pre-Sanitization
+## 1. Класифікуй дані (світлофор)
 
-- [ ] **Input Source Identified:** Document path/name recorded
-- [ ] **Output Destination Specified:** Where sanitized version will be saved
-- [ ] **Original Language Noted:** Preserve or translate?
-- [ ] **Data Classification Done:** What's sensitive vs. contextual?
-- [ ] **Stakeholder Approval:** If needed, confirm scope of sanitization
+Визнач рівень чутливості кожного поля:
 
-## Redaction Rules (Tier 1) — Complete Removal
+- [ ] **🔴 Ніколи публічним:** 
+  - Секрети (API ключі, токени, паролі, connection strings, SSH ключі)
+  - PII (ім'я, email, телефон, дата народження, паспорт, ІПН/Tax ID)
+  - Банківська таємниця (картка, CVV, IBAN, рахунок, баланс)
+  - Production дампи/логи з реальними даними
+  - Медичні/державні/регульовані дані
+  - Компрометуючі документи
 
-Remove entirely. Replace with `[REDACTED]`.
+- [ ] **🟡 Лише enterprise/no-train:** 
+  - Внутрішній код під NDA
+  - Бізнес-логіка / архітектура
+  - Схеми баз даних
+  - Тікети з внутрішнім контекстом
+  - Анонімізовані логи з мережевою інформацією
+  - Імена серверів / інтернальна інфраструктура
 
-### Personal Identifiable Information (PII)
-- [ ] Full names / person identifiers
-- [ ] Date of birth / age data
-- [ ] Social Security Numbers / National ID numbers
-- [ ] Passport numbers / travel documents
-- [ ] Driver's license / ID card numbers
-- [ ] Phone numbers (complete)
-- [ ] Complete email addresses
-- [ ] Home addresses / physical locations
-- [ ] Family member names
-- [ ] Medical/health information
+- [ ] **🟢 Можна публічним:** 
+  - Публічний / OSS код
+  - Синтетичні дані
+  - Загальні питання / документація без даних
+  - Stack trace без значень змінних
 
-### Financial Data
-- [ ] Credit card numbers (full)
-- [ ] Card CVV/security codes
-- [ ] Bank account numbers (full IBAN/routing)
-- [ ] Account balances / financial amounts (if sensitive)
-- [ ] Tax ID numbers (full)
-- [ ] Salary / compensation data
+- [ ] **Сумніви:** Вважати 🔴. Краще перестрахуватися.
 
-### Secrets & Credentials
-- [ ] Plaintext passwords
-- [ ] API keys / authentication tokens
-- [ ] Database connection strings with credentials
-- [ ] SSH keys / private keys
-- [ ] OAuth tokens / bearer tokens
-- [ ] Session tokens / cookies with secrets
-- [ ] Cloud service credentials (AWS keys, etc.)
-- [ ] Internal service credentials
+## 2. Очисти дані (техніка за категорією)
 
-### Business Secrets
-- [ ] Proprietary algorithm details (if confidential)
-- [ ] Internal-only server/system names (optional: substitute with generic)
-- [ ] Customer lists / partner names (if confidential)
-- [ ] Financial metrics / revenue data (if sensitive)
-- [ ] Strategic information
-- [ ] Unreleased feature details
+Застосуй відповідну техніку в залежності від категорії:
 
-## Masking Rules (Tier 2) — Partial Obscuration
+### 🔴 Redaction — видалити повністю
+- [ ] Видалити даний елемент целком
+- [ ] Замінити на `[REDACTED]`
+- **Коли:** Коли дані не потрібні для розуміння задачі
 
-Partially hide. Preserve context for troubleshooting.
+**Приклади:**
+- Пароль: `password=Tr0ub4dor&3` → `password=[REDACTED]`
+- API ключ: `sk-live-9f3a2b7c1d8e4f60a1b2c3d4e5f6` → `[REDACTED]`
+- ПІБ: `Іван Петренко` → `[REDACTED]`
+- Баланс: `428 800.50 UAH` → `[REDACTED]`
 
-### Network & Infrastructure
-- [ ] IP Addresses: `192.168.1.1` → `192.168.x.x` or `10.0.x.x`
-- [ ] Hostnames: `prod-db-001.internal.com` → `prod-db-XXX.internal.com`
-- [ ] Port numbers: Optional (keep for context)
-- [ ] URLs: Mask domain/path details if sensitive: `https://internal.example.com/api/users/123` → `https://internal.example.com/api/users/XXX`
+### 🟡 Masking — зберегти формат, прибрати значення
+- [ ] Зберегти структуру для контексту
+- [ ] Прибрати чутливу частину
+- **Коли:** Коли потрібна структура для розуміння, але не значення
 
-### Identifiers
-- [ ] Email addresses: `john.doe@company.com` → `j***e@company.com`
-- [ ] Usernames: `jdoe_prod` → `j***e_prod` or generic user ID
-- [ ] Account/Transaction IDs: `ACC-123456789` → `ACC-XXXXXX`
-- [ ] Order/Ticket IDs: Mask unique suffix if needed
-- [ ] Session/Request IDs: `sess_abc123def456` → `sess_XXXXXX`
+**Приклади:**
+- Email: `olena.shevchenko@gmail.com` → `o***e@gmail.com`
+- IP: `192.168.1.42` → `192.168.x.x`
+- IBAN: `UA90 3052 9900 0000 0260 0012 3456 789` → `UA90-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX`
+- Телефон: `+380 50 123 45 67` → `+380-50-XXXX-XXXX`
+- Транзакція: `TX-99812` → `TX-XXXXX`
+- Хост: `prod-db-001.internal.com` → `prod-db-XXX.internal.com`
 
-### Partial Data
-- [ ] Phone numbers: `+1-555-0123` → `+1-555-XXXX`
-- [ ] Social Security: `123-45-6789` → `XXX-XX-6789` (last 4 only, if needed)
-- [ ] Zip codes: Keep if low-risk, mask if combined with name
-- [ ] Bank routing: `021000021` → `021-XXXX` (first part only)
-- [ ] IBAN: `UA90 3052 9900 0000 0260 0012 3456 789` → `UA90-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX`
+### Synthetic — замінити реалістичним вигаданим
+- [ ] Замінити реальні дані синтетичними
+- [ ] Зберегти формат/тип
+- **Коли:** Потрібні «справжні на вигляд» дані для воспроізведення
 
-## Context Preservation Checklist
+**Приклади:**
+- Назва: `Петро Іванов` → `Іван Коваленко`
+- Компанія: `MyBank Corp` → `TechBank Inc`
+- URL: `https://prod.mycompany.internal/api/v2/accounts/123` → `https://example.com/api/v2/accounts/XXX`
 
-Verify technical/business context remains intact for troubleshooting:
+### 🔴 Секрети — out-of-band
+- [ ] **НЕ маскувати** чутливі секрети
+- [ ] **НЕ давати взагалі** — тільки локально через env/secret store
+- [ ] Якщо вже «світилися» → одразу ротувати
 
-- [ ] **Error Messages:** Preserved (stack traces, error codes)
-- [ ] **Method/Function Names:** Kept (code logic visible)
-- [ ] **Component/Module Names:** Kept (system architecture clear)
-- [ ] **Log Structure:** Timestamps, log levels, format intact
-- [ ] **Variable Relationships:** Logic flow understandable
-- [ ] **Numerical Context:** Amounts, counts, metrics preserved (non-financial)
-- [ ] **Ticket Details:** ID, priority, status, steps to reproduce
-- [ ] **Technical Specifications:** OS, version, configuration (non-sensitive)
-- [ ] **Feature/Branch Names:** Kept (development context)
+## 3. Перевір перед публікацією
 
-## Output Verification
+Остаточна перевірка перед відправкою:
 
-After sanitization, verify:
+- [ ] Чи можна реідентифікувати людину з решти полів? (ім'я + ДН + місто + посада = ризик)
+- [ ] Чи не містить URL / скріншот / лог чутливу інформацію приховано?
+- [ ] Чи **збережена задача** після санітизації? (розробник може відтворити / зрозуміти баг?)
+- [ ] Чи відповідає метод (redaction/masking/synthetic) категорії даних?
+- [ ] Чи немає забутих 🔴 даних у текстовій частині?
+- [ ] Чи немає повторень чутливих значень в логах?
 
-- [ ] No plaintext passwords visible
-- [ ] No complete credit card / financial account numbers
-- [ ] No complete phone numbers
-- [ ] No complete SSN / national ID / passport
-- [ ] No API keys or tokens (full or partial recognizable)
-- [ ] No complete email addresses (at least masked)
-- [ ] No complete home addresses
-- [ ] No database credentials in connection strings
-- [ ] No unmasked IP addresses (if sensitive)
-- [ ] No sensitive names in text
-- [ ] No health/medical data
-- [ ] No salary/compensation data
-- [ ] No customer lists (if confidential)
-- [ ] **Document Structure:** Intact and readable
-- [ ] **Technical Context:** Sufficient for debugging
-- [ ] **Language:** Preserved as intended
-- [ ] **Formatting:** Valid Markdown/format
+## 4. Інструмент за категорією (для вашої команди)
 
-## Compliance & Standards
+Заповни, який інструмент допущений для якої категорії:
 
-Check against relevant regulations:
+| Категорія | Допущений інструмент / сервіс | Нотатки |
+|---|---|---|
+| 🟢 | Будь-які моделі, github, публічні сховища | Комерційна ліцензія OK |
+| 🟡 | Claude Business / no-train режим; Copilot Business | Не на публіку; не тренування |
+| 🔴 | Тільки локально; не давати моделям; vault/env тільки | Ротувати якщо витік |
 
-- [ ] **GDPR:** Personal data minimization (EU)
-- [ ] **CCPA:** Consumer privacy rights (California)
-- [ ] **HIPAA:** Health data protection (US Healthcare)
-- [ ] **PCI-DSS:** Payment card security
-- [ ] **SOC 2:** Data protection requirements
-- [ ] **Internal Policy:** Company data classification
-- [ ] **NDA/Confidentiality:** Contractual requirements
+## 5. Якщо сталася витік секретів
 
-## Documentation
+- [ ] **Негайно ротувати** скомпрометовані секрети (ключі, паролі, токени)
+- [ ] **Нотифікувати** відповідального (security lead / CISO)
+- [ ] **Зафіксувати інцидент** в журналі (коли, що, хто, дія)
+- [ ] **Оновити цей чек-ліст** — як це сталося?
+- [ ] **Post-mortem:** Запобіжні заходи на майбутнє
 
-- [ ] **Sanitization Log:** Document what was redacted/masked
-- [ ] **Reason for Changes:** Note why each field was sanitized
-- [ ] **Who Performed It:** Name/role of sanitizer
-- [ ] **When Performed:** Date and time
-- [ ] **Approval Status:** Reviewed and approved?
-- [ ] **Version Control:** Track as new version if applicable
+## 6. Документування
 
-## Sign-Off Checklist
-
-- [ ] All sensitive data removed or masked
-- [ ] Technical context preserved for intended audience
-- [ ] No accidental re-introduction of sensitive data
-- [ ] Stakeholders reviewed (if required)
-- [ ] Output document safe for distribution/storage
-- [ ] Sanitization log attached or documented
-- [ ] Original file archived securely (if needed)
-- [ ] All steps verified and complete
+- [ ] **Хто** виконав санітизацію (ім'я/роль)
+- [ ] **Коли** (дата, час)
+- [ ] **Що** було видалено/замасковано (коротко)
+- [ ] **Чому** (категорія, причина)
+- [ ] **Затверджено** кимось? (якщо потрібно)
 
 ---
 
-## Usage Notes
+## Шаблон для використання
 
-1. **Copy this template** for each sanitization task
-2. **Check off boxes** as you complete each step
-3. **Customize the rules** for your data classification
-4. **Document decisions** in the Sanitization Log
-5. **Archive this checklist** with the sanitized output
-6. **Review before publishing** the sanitized document
+1. **Скопіюй** цей файл для нової задачі
+2. **Заповни** секцію 4 під свою команду (один раз)
+3. **Класифікуй** дані (секція 1)
+4. **Очисти** за відповідною технікою (секція 2)
+5. **Перевір** перед публікацією (секція 3)
+6. **Задокументуй** (секція 6)
+7. **Архівуй** цей чек-ліст разом з результатом
 
-**Status:** Template ready for use
+**Status:** Template ready

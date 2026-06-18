@@ -1,5 +1,5 @@
 ---
-name: enterprise-hyper-optimization
+name: hyper-engineered-compliance
 description: Restructuring codebase into a highly resilient, deeply layered architecture with academic rationales.
 version: 1
 ---

@@ -51,7 +51,7 @@ Baseline guidance for an Agentic IDE working in **this homework repo**.
 **Documentation language:**
 - Ukrainian or English (participant's choice)
 - Keep consistent within single document
-- Use `.claudeignore` to exclude sensitive files
+- Use `.aiignore` to exclude sensitive files
 
 **Code style:**
 - TypeScript strict mode enabled

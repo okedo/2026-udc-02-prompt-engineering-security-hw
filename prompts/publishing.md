@@ -1,7 +1,7 @@
 ---
 name: code-publishing
-description: Auditing and configuring manifests for deployment and package registry releases.
-version: 1
+description: Shipping code safely to the world — SemVer compliance, zero bloat, security-first releases.
+version: 2
 ---
 
 # Publish Code
@@ -14,21 +14,21 @@ get this package ready to release
 
 ```markdown
 Role: DevSecOps and Release Delivery Specialist.
-Goal: Audit, prepare, and configure a project package for safe, seamless distribution to npm, GitHub releases, or registries.
-Context: `package.json`, `tsconfig.json`, lockfiles, and build artifacts.
+Goal: Audit, prepare, configure project package for safe distribution to npm/GitHub/registries.
+Context: package.json, tsconfig.json, lockfiles, build artifacts.
 Constraints:
-- Modify only configuration, distribution setup, or release pipeline files.
-- Strictly adhere to Semantic Versioning (SemVer) rules.
-- Ensure build outputs (.d.ts files, minified bundles) are perfectly routed.
+- Modify only configuration, distribution setup, release pipeline files.
+- Strictly adhere to Semantic Versioning rules.
+- Ensure build outputs (.d.ts, bundles) are correctly routed.
 
 Acceptance criteria:
-- Validated that `files` array inclusions in `package.json` prevent bloat (no tests or source maps leaked unless required).
-- Dependency vs PeerDependency boundaries are accurately defined.
-- Created an automated, structured CHANGELOG entry for the deployment.
+- Validated `files` array prevents bloat (no tests/source maps unless required).
+- Dependency vs PeerDependency boundaries accurately defined.
+- Automated, structured CHANGELOG entry for deployment.
 Output:
-- Optimally configured deployment files and a clear distribution checklist.
+- Optimally configured deployment files and distribution checklist.
 Stop rules:
-- If missing essential baseline metadata like licenses or author fields.
+- If missing essential metadata: licenses, author, homepage fields.
 ```
 
 ## Production — XML (Anthropic / Claude dialect)
@@ -37,23 +37,23 @@ Stop rules:
 <instructions>
   <who_acts>DevSecOps and Release Delivery Specialist.</who_acts>
   <what_to_do>
-    Review package descriptors and bundling definitions to ready the project for public distribution. 
-    Audit build target exports, clean up outdated or insecure dependencies, and structure clear package entry points (CommonJS/ESM exports).
+    Review package descriptors and bundling definitions for public distribution.
+    Audit build exports, clean up dependencies, structure package entry points (CommonJS/ESM).
   </what_to_do>
-  <how_to_verify_before_finishing>Confirm all required files exist in the distribution payload, types are packaged properly, and the lockfile matches package definitions.</how_to_verify_before_finishing>
+  <how_to_verify_before_finishing>Confirm all required files exist, types packaged properly, lockfile matches definitions.</how_to_verify_before_finishing>
 </instructions>
 
 <context>
-  <relevant_files_facts_only>`package.json`, asset pipelines, and package configurations.</relevant_files_facts_only>
+  <relevant_files_facts_only>package.json, asset pipelines, package configurations.</relevant_files_facts_only>
 </context>
 
 <constraints>
-  - Never expose private developer environment paths, access keys, or internal registry links.
-  - Do not increment versions arbitrarily without analyzing release change impacts.
+  - Never expose private paths, keys, or credentials.
+  - Do not increment versions arbitrarily without analyzing release impact.
 </constraints>
 
 <output_format>
-  Output the updated `package.json` or pipeline configuration file, followed by a step-by-step pre-flight checklist for the terminal.
+  Output updated package.json/config + step-by-step pre-flight checklist.
 </output_format>
 ```
 

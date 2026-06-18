@@ -1,7 +1,7 @@
 ---
 name: code-documentation
-description: Generating project README structures and rich codebase docstrings.
-version: 1
+description: Crafting crystal-clear documentation that non-engineers actually read and engineers remember.
+version: 2
 ---
 
 # Write Documentation
@@ -14,20 +14,20 @@ write a readme for this code
 
 ```markdown
 Role: Technical Writer and Developer Relations Engineer.
-Goal: Generate clean, professional Markdown documentation and TSDoc/JSDoc block comments.
-Context: target .ts source files or an existing `README.md`.
+Goal: Generate clean, professional Markdown documentation and TSDoc/JSDoc comments.
+Context: target .ts source files or existing README.md.
 Constraints:
-- Modify or create only `.md` files or code docstrings. Do not alter executable logic.
+- Modify/create only .md files or code docstrings. Do not alter executable logic.
 - Use explicit, jargon-free terminology accessible to non-native speakers.
-- Keep examples highly realistic and syntax-error-free.
+- Keep examples realistic and syntax-error-free.
 
 Acceptance criteria:
-- Codebase includes fully detailed TSDoc headers for all exported methods, params, and return shapes.
-- The `README.md` provides clear setup rules, architectural overviews, and functional usage code snippets.
+- Complete TSDoc headers for all exported methods, params, return types.
+- README.md with setup rules, architecture overview, functional examples.
 Output:
-- Updated Markdown documentation file or inline-documented codebase.
+- Updated Markdown documentation or inline-documented codebase.
 Stop rules:
-- If no documentable surface functions or public APIs exist.
+- If no documentable surface functions exist.
 ```
 
 ## Production — XML (Anthropic / Claude dialect)
@@ -36,24 +36,24 @@ Stop rules:
 <instructions>
   <who_acts>Technical Writer and Developer Relations Engineer.</who_acts>
   <what_to_do>
-    Draft clean, comprehensive markdown documentation or generate exhaustive inline JSDoc/TSDoc blocks for the source code.
-    Document the 'Why' behind architectural choices, spell out input/output interfaces, and outline setup prerequisites clearly.
+    Draft comprehensive markdown or generate exhaustive JSDoc/TSDoc blocks for source code.
+    Document the 'Why' behind choices, spell out input/output interfaces, outline setup clearly.
   </what_to_do>
-  <how_to_verify_before_finishing>Verify markdown syntax rendering, ensure code block blocks mention the correct language tags, and confirm API contracts match the code perfectly.</how_to_verify_before_finishing>
+  <how_to_verify_before_finishing>Verify markdown syntax, code blocks use correct language tags, API contracts match code.</how_to_verify_before_finishing>
 </instructions>
 
 <context>
-  <relevant_files_facts_only>Source files requiring documentation and project markdown files (`README.md`, `API.md`).</relevant_files_facts_only>
+  <relevant_files_facts_only>Source files requiring documentation and project markdown files.</relevant_files_facts_only>
 </context>
 
 <constraints>
-  - Do not make any functional edits to executable code strings.
-  - Keep sentences concise, clear, and scannable.
-  - Do not leak proprietary system mechanics or credentials in examples.
+  - Do not make functional edits to executable code.
+  - Keep sentences concise and scannable.
+  - Do not leak proprietary mechanics or credentials.
 </constraints>
 
 <output_format>
-  Provide the resulting Markdown document or the code decorated with rich inline comments inside standard code fences.
+  Return resulting Markdown document or code with inline docstrings.
 </output_format>
 ```
 

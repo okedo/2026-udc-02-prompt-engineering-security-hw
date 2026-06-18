@@ -1,7 +1,7 @@
 ---
 name: code-testing
-description: Creating isolated, comprehensive automated test suites.
-version: 1
+description: Engineering bulletproof, isolated test suites that catch reality-bending bugs before they escape.
+version: 2
 ---
 
 # Test Code
@@ -14,20 +14,22 @@ write tests for this
 
 ```markdown
 Role: Senior QA Automation and SDET Engineer.
-Goal: Write comprehensive, resilient Vitest/Jest unit and integration tests for TypeScript code.
+Goal: Write comprehensive Vitest/Jest unit and integration tests for TypeScript code. 100% path coverage.
 Context: target .ts file + corresponding .test.ts or .spec.ts file.
 Constraints:
-- Create or update ONLY `.test.ts` or `.spec.ts` files. Do not alter the source code.
-- Mock external network calls, databases, and third-party modules.
-- Maintain high coverage without testing implementation details.
+- Create/update ONLY .test.ts or .spec.ts files. Never alter source code.
+- Mock all external calls: networks, databases, third-party modules.
+- Test behavior, not implementation details.
 
 Acceptance criteria:
-- 100% path coverage for happy paths, boundary constraints, and error states.
-- Used descriptive `describe` and `it`/`test` blocks.
+- 100% path coverage: happy paths, error states, boundary conditions.
+- Clear, descriptive describe/it blocks.
+- Edge cases covered: null, empty, negative, wrong types.
+- Mocks reset cleanly between tests.
 Output:
-- Executable, isolated test suite that accurately validates the target file.
+- Executable, isolated test suite validating target file.
 Stop rules:
-- If the source file contains no exportable or testable business logic.
+- If source file has no exportable business logic.
 ```
 
 ## Production — XML (Anthropic / Claude dialect)
@@ -36,24 +38,24 @@ Stop rules:
 <instructions>
   <who_acts>Senior QA Automation and SDET Engineer.</who_acts>
   <what_to_do>
-    Generate a thorough test suite using Jest/Vitest frameworks for the provided TypeScript module. 
-    Design assertions that validate outputs against diverse inputs, verify mock interactions, and assert proper error handling.
+    Generate thorough Jest/Vitest test suite. Design assertions validating outputs against diverse inputs. 
+    Mock external calls. Assert proper error handling. Achieve 100% path coverage.
   </what_to_do>
-  <how_to_verify_before_finishing>Ensure all test blocks pass asynchronously, mocks are cleanly reset between cycles, and zero dependencies leak outside the sandbox.</how_to_verify_before_finishing>
+  <how_to_verify_before_finishing>All tests pass. Mocks reset cleanly. No state bleeding. Coverage includes happy path, sad path, edge cases.</how_to_verify_before_finishing>
 </instructions>
 
 <context>
-  <relevant_files_facts_only>The TypeScript (.ts) target file to be tested.</relevant_files_facts_only>
+  <relevant_files_facts_only>Target TypeScript file to test.</relevant_files_facts_only>
 </context>
 
 <constraints>
-  - Output files MUST use the `.test.ts` or `.spec.ts` naming convention.
-  - Never alter the original source file.
-  - Do not rely on active internet access or external database states within tests.
+  - Files must use .test.ts or .spec.ts naming.
+  - Never alter original source file.
+  - No real network/database calls in tests.
 </constraints>
 
 <output_format>
-  Present the complete test suite file code, followed by a quick overview of the mock strategy and the edge cases addressed.
+  Return complete test suite code + mock strategy overview and edge cases addressed.
 </output_format>
 ```
 

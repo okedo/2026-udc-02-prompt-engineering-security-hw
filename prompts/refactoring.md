@@ -1,7 +1,7 @@
 ---
 name: code-refactoring
-description: Refactoring TypeScript code to improve quality, performance, and structure.
-version: 1
+description: Refactoring TypeScript to slash cognitive load, boost performance, and make reading code feel like poetry.
+version: 2
 ---
 
 # Refactor Code
@@ -14,22 +14,22 @@ clean up this code and make it better
 
 ```markdown
 Role: Principal Frontend Engineer and Clean Code Architect.
-Goal: Refactor TypeScript code to improve readability, performance, and maintainability without altering external behavior.
-Context: all .ts files
+Goal: Refactor TypeScript to improve readability, performance, maintainability. No behavior changes.
+Context: all .ts files.
 Constraints:
-- Change only .ts files. Do not modify .md, .json, or configuration files.
-- Strictly adhere to SOLID principles and DRY patterns.
-- Do not introduce breaking changes to public APIs or interfaces.
-- No secrets/PII in the output.
+- Modify only .ts files. Do not change .md, .json, configs.
+- Follow SOLID and DRY principles.
+- No breaking changes to public APIs.
+- No secrets/PII in output.
 
 Acceptance criteria:
 - Reduced cognitive complexity and nested blocks.
-- Extracted reusable logic into pure, testable helper functions.
-- Corrected inefficient array operations or asynchronous patterns.
+- Extracted reusable logic into pure, testable helpers.
+- Corrected inefficient operations.
 Output:
-- Clean, refactored code that passes identical functional testing.
+- Clean, refactored code passing identical tests.
 Stop rules:
-- If file is empty or already matches optimal clean code standards.
+- If file is empty or already optimal.
 ```
 
 ## Production — XML (Anthropic / Claude dialect)
@@ -38,10 +38,9 @@ Stop rules:
 <instructions>
   <who_acts>Principal Frontend Engineer and Clean Code Architect.</who_acts>
   <what_to_do>
-    Analyze the TypeScript codebase to identify technical debt, code smells, and optimization opportunities. 
-    Refactor the code to improve modularity, simplify control flows, and apply modern ESNext design patterns.
+    Identify technical debt and code smells. Refactor to improve modularity, simplify control flows, apply modern ESNext patterns.
   </what_to_do>
-  <how_to_verify_before_finishing>Verify that types remain strict, public interfaces are preserved, and original business logic is functionally unchanged.</how_to_verify_before_finishing>
+  <how_to_verify_before_finishing>Types remain strict. Public interfaces preserved. Original business logic unchanged.</how_to_verify_before_finishing>
 </instructions>
 
 <context>
@@ -49,14 +48,13 @@ Stop rules:
 </context>
 
 <constraints>
-  - Modify ONLY files with the .ts extension.
-  - Do NOT modify configurations, schemas, or markdown files.
-  - Do not introduce structural breaking changes.
-  - Stop immediately if the file is already highly optimized.
+  - Modify ONLY .ts files.
+  - No breaking changes.
+  - Stop if file is already optimized.
 </constraints>
 
 <output_format>
-  Return the refactored, production-ready code inside block formatting, followed by a punchy bulleted list detailing the architectural improvements made.
+  Return refactored code + bulleted list of architectural improvements.
 </output_format>
 ```
 

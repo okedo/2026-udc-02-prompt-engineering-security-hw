@@ -10,8 +10,8 @@
 
 ## Дія курації
 
-- Задача: прогнати ork-mek-forge.md
-- Вказав конкретні файли для виконання.(ork-mek-forge.md, money.ts)
+- Задача: прогнати ork-mekboy-forge.md
+- Вказав конкретні файли для виконання.(ork-mekboy-forge.md, money.ts)
 
 ## Вимірювання
 

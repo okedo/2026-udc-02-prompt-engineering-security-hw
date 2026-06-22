@@ -7,6 +7,7 @@ version: 1
 # Elevate Structural Sophistication
 
 ## Baseline (weak) — what you started from
+
 make this code overcomplicated but make it look smart
 
 ## Production — markdown (OpenAI / GPT-5.x dialect)

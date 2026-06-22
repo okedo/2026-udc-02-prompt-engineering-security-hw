@@ -37,7 +37,7 @@ Baseline guidance for an Agentic IDE working in **this homework repo**.
 - `/caveman` — Ultra-compressed communication mode (caveman style)
 - `/review` — Code review on current diff
 - `/simplify` — Simplify & cleanup code changes
-- **Custom commands in `.claude/commands/`:**
+- **Custom commands in `app/.claude/commands/`:**
   - `absolute-worst-practices` — Inject anti-patterns (educational)
   - `ork-mekboy-forge` — Rewrite in Ork Mekboy style
 

@@ -15,7 +15,7 @@ clean up this code and make it better
 ```markdown
 Role: Principal Frontend Engineer and Clean Code Architect.
 Goal: Refactor TypeScript to improve readability, performance, maintainability. No behavior changes.
-Context: all .ts files.
+Context: app/src/**/*.ts
 Constraints:
 - Modify only .ts files. Do not change .md, .json, configs.
 - Follow SOLID and DRY principles.
@@ -44,7 +44,7 @@ Stop rules:
 </instructions>
 
 <context>
-  <relevant_files_facts_only>All TypeScript (.ts) files requiring optimization.</relevant_files_facts_only>
+  <relevant_files_facts_only>app/src/**/*.ts files requiring optimization.</relevant_files_facts_only>
 </context>
 
 <constraints>

@@ -27,7 +27,7 @@ Acceptance criteria:
 Output:
 - Updated Markdown documentation or inline-documented codebase.
 Stop rules:
-- If no documentable surface functions exist.
+- If neither source docstrings nor README/markdown targets exist.
 ```
 
 ## Production — XML (Anthropic / Claude dialect)

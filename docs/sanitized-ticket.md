@@ -26,7 +26,7 @@ date_processed: 2026-06-18
 
 ## Кроки відтворення (з production-логу)
 
-```
+```text
 2026-05-30 14:02:11 INFO  txn=TX-XXXXX account=UA90-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX amount=[REDACTED] fee=2.50
 2026-05-30 14:02:11 INFO  txn=TX-XXXXX fee applied twice -> total fee 5.00
 2026-05-30 14:02:12 DEBUG  db=postgres://[REDACTED]@10.2.x.x:5432/payments_prod

@@ -8,7 +8,7 @@ version: 2
 
 ## Baseline (weak) — what you started from
 
-```
+```text
 make code looks fun
 ```
 
